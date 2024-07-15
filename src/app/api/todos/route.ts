@@ -17,7 +17,6 @@ export async function GET() {
 export async function POST(NextRequest: any) {
   const body = await NextRequest.json()
   try {
-
     if (!body) {
       return NextResponse.json({ error: 'Title is required', status: 400 })
     }

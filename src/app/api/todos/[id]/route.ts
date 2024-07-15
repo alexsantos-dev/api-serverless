@@ -18,12 +18,15 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   const body = await request.json()
+  const { title } = body
   const id = request.nextUrl.pathname.split('/').pop()
   try {
-    if (!body) {
-      return NextResponse.json({ error: 'Title is required' })
-    }
     const updatedTodo = await todoService.updateTodo(id!, body)
+
+    if (!title) {
+      return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
+    }
+
     return NextResponse.json({ data: updatedTodo })
   } catch (error: any) {
     return NextResponse.json({ error: error.message })

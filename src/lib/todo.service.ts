@@ -9,9 +9,9 @@ class TodoService {
     return await Todo.find().sort({ updatedAt: -1 })
   }
 
-  async getTodoById(_id: string): Promise<ITodo | null> {
+  async getTodoById(id: string): Promise<ITodo | null> {
     await connectMongo()
-    return await Todo.findById(_id)
+    return await Todo.findById(id)
   }
 
   async createTodo(todoData: TodoCreateDto): Promise<ITodo> {
@@ -21,14 +21,14 @@ class TodoService {
     return todo
   }
 
-  async updateTodo(_id: string, updateData: TodoUpdateDto): Promise<ITodo | null> {
+  async updateTodo(id: string, updateData: TodoUpdateDto): Promise<ITodo | null> {
     await connectMongo()
-    return await Todo.findByIdAndUpdate(_id, updateData, { new: true })
+    return await Todo.findByIdAndUpdate(id, updateData, { new: true })
   }
 
-  async deleteTodo(_id: string): Promise<void> {
+  async deleteTodo(id: string): Promise<void> {
     await connectMongo()
-    await Todo.findByIdAndDelete(_id)
+    await Todo.findByIdAndDelete(id)
   }
 }
 
