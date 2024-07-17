@@ -7,12 +7,12 @@ export async function GET(request: NextRequest) {
     const todo = await todoService.getTodoById(id!)
 
     if (todo === null) {
-      return NextResponse.json({ error: 'No data found' })
+      return NextResponse.json({ error: 'Entity not found' }, { status: 404 })
     }
 
-    return NextResponse.json({ todo })
+    return NextResponse.json({ todo }, { status: 200 })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message })
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
 
@@ -27,18 +27,21 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
     }
 
-    return NextResponse.json({ data: updatedTodo })
+    return NextResponse.json({ data: updatedTodo }, { status: 200 })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message })
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
 
 export async function DELETE(request: NextRequest) {
   const id = request.nextUrl.pathname.split('/').pop()
   try {
-    await todoService.deleteTodo(id!)
+    const response = await todoService.deleteTodo(id!)
+    if (response === null) {
+      return NextResponse.json({ error: 'Entity not found' }, { status: 404 })
+    }
     return new Response(null, { status: 204 })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message })
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

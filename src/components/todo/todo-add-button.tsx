@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -8,9 +10,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Textarea } from '@/components/ui/textarea'
+import TodoForm from './todo-form'
+import axios from 'axios'
+import { localUrl } from '@/utils/consts'
 
-export default function AddButton() {
+export default function TodoAddButton() {
+  const addTodoEntity = async (data: { title: string }) => {
+    if (!data.title.trim()) {
+      return
+    }
+    await axios.post(`${localUrl}/api/todos`, data)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -19,13 +30,11 @@ export default function AddButton() {
       <DialogContent className='w-[400px] h-[260px]'>
         <DialogHeader>
           <DialogTitle>Adicionar</DialogTitle>
+          <DialogDescription>
+            Adicione seu todo no campo abaixo
+          </DialogDescription>
         </DialogHeader>
-        <div className='flex gap-3 flex-col rounded-xl mb-4 '>
-          <Textarea className='w-full h-full' />
-        </div>
-        <DialogFooter>
-          <Button type='submit'>Salvar</Button>
-        </DialogFooter>
+        <TodoForm SubmitForm={addTodoEntity} />
       </DialogContent>
     </Dialog>
   )
