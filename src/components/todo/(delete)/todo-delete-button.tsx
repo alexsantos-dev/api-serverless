@@ -2,6 +2,7 @@
 
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogFooter,
@@ -10,14 +11,18 @@ import {
   AlertDialogTrigger,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import TodoDeleteButton from './todo-delete-button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import axios from 'axios'
 import { localUrl } from '@/utils/consts'
+import { TodoDeleteButtonProps } from '@/utils/interfaces/TodoList.interface'
 
-export default function TodoDeleteContainer({ id }: { id: string }) {
+export default function TodoDeleteButton({
+  id,
+  onAction,
+}: TodoDeleteButtonProps) {
   const deleteTodoEntity = async () => {
     await axios.delete(`${localUrl}/api/todos/${id}`)
+    onAction()
   }
 
   return (
@@ -34,7 +39,11 @@ export default function TodoDeleteContainer({ id }: { id: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter className='flex gap-3'>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <TodoDeleteButton DeleteAction={deleteTodoEntity} />
+          <AlertDialogAction
+            onClick={deleteTodoEntity}
+            className={buttonVariants({ variant: 'destructive' })}>
+            Confirmar
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

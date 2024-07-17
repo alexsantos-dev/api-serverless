@@ -14,8 +14,8 @@ import {
 
 import { DialogFooter, DialogClose } from '@/components/ui/dialog'
 
-import { Textarea } from '../ui/textarea'
-import { Button } from '../ui/button'
+import { Textarea } from '../../ui/textarea'
+import { Button } from '../../ui/button'
 
 const formSchema = z.object({
   title: z.string().min(4, {
@@ -30,7 +30,7 @@ interface TodoFormProps {
   title: string
 }
 
-export default function TodoForm({ SubmitForm, title }: TodoFormProps) {
+export default function TodoEditForm({ SubmitForm, title }: TodoFormProps) {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {

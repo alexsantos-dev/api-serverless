@@ -14,6 +14,11 @@ const todoSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 })
 
+todoSchema.pre('findOneAndUpdate', function (next) {
+  this.set({ updatedAt: new Date() })
+  next()
+})
+
 const Todo = mongoose.models.Todo || mongoose.model<ITodo>('Todo', todoSchema)
 
 export default Todo

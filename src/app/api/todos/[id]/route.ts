@@ -22,7 +22,9 @@ export async function PATCH(request: NextRequest) {
   const id = request.nextUrl.pathname.split('/').pop()
   try {
     const updatedTodo = await todoService.updateTodo(id!, body)
-
+    if (!updatedTodo) {
+      return NextResponse.json({ error: 'Entity not found' }, { status: 404 })
+    }
     if (!title) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
     }

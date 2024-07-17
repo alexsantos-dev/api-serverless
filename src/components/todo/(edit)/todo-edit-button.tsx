@@ -9,21 +9,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import TodoForm from './todo-form'
+import TodoEditForm from './todo-edit-form'
 import axios from 'axios'
 import { localUrl } from '@/utils/consts'
+import { TodoButtonActionProps } from '@/utils/interfaces/TodoList.interface'
 
-interface TodoEditButtonProps {
-  id: string
-  title: string
-}
-
-export default function TodoEditButton({ id, title }: TodoEditButtonProps) {
+export default function TodoEditButton({
+  id,
+  title,
+  onAction,
+}: TodoButtonActionProps) {
   const editTodoEntity = async (data: { title: string }) => {
     if (!data.title.trim()) {
       return
     }
     await axios.patch(`${localUrl}/api/todos/${id}`, data)
+    onAction()
   }
 
   return (
@@ -38,7 +39,7 @@ export default function TodoEditButton({ id, title }: TodoEditButtonProps) {
           <DialogTitle>Editar</DialogTitle>
           <DialogDescription>Edite seu todo no campo abaixo</DialogDescription>
         </DialogHeader>
-        <TodoForm SubmitForm={editTodoEntity} title={title}/>
+        <TodoEditForm SubmitForm={editTodoEntity} title={title} />
       </DialogContent>
     </Dialog>
   )

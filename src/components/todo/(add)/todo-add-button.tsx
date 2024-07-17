@@ -10,16 +10,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import TodoForm from './todo-form'
 import axios from 'axios'
 import { localUrl } from '@/utils/consts'
+import TodoAddForm from './todo-add-form'
 
-export default function TodoAddButton() {
+export default function TodoAddButton({
+  onAction,
+}: {
+  onAction: () => Promise<void>
+}) {
   const addTodoEntity = async (data: { title: string }) => {
     if (!data.title.trim()) {
       return
     }
     await axios.post(`${localUrl}/api/todos`, data)
+    onAction()
   }
 
   return (
@@ -34,7 +39,7 @@ export default function TodoAddButton() {
             Adicione seu todo no campo abaixo
           </DialogDescription>
         </DialogHeader>
-        <TodoForm SubmitForm={addTodoEntity} />
+        <TodoAddForm SubmitForm={addTodoEntity} />
       </DialogContent>
     </Dialog>
   )

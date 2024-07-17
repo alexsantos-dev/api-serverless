@@ -1,2 +1,3 @@
-import { TodoCreateDto } from './create-todo.dto'
-export class TodoUpdateDto extends TodoCreateDto { }
+export class TodoUpdateDto {
+  title!: string
+}
