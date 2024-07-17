@@ -3,7 +3,7 @@ import Todo, { ITodo } from '@/models/todo.model'
 import { TodoCreateDto } from '@/models/dto/create-todo.dto'
 import { TodoUpdateDto } from '@/models/dto/update-todo.dto'
 
-class TodoService {
+export default class TodoService {
   async getAllTodos(): Promise<ITodo[]> {
     await connectMongo()
     return await Todo.find().sort({ updatedAt: -1 })
@@ -31,5 +31,3 @@ class TodoService {
     await Todo.findByIdAndDelete(id)
   }
 }
-
-export default new TodoService()

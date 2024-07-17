@@ -1,5 +1,7 @@
-import todoService from '@/lib/todo.service'
+import TodoService from '@/lib/todo.service'
 import { NextRequest, NextResponse } from 'next/server'
+
+const todoService = new TodoService()
 
 export async function GET(request: NextRequest) {
   const id = request.nextUrl.pathname.split('/').pop()

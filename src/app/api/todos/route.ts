@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import todoService from '@/lib/todo.service'
+import TodoService from '@/lib/todo.service'
+
+const todoService = new TodoService()
 
 export async function GET() {
   try {
