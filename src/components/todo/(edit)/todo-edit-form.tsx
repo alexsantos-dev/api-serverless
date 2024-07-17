@@ -12,10 +12,10 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 
-import { DialogFooter, DialogClose } from '@/components/ui/dialog'
-
+import { DialogFooter } from '@/components/ui/dialog'
 import { Textarea } from '../../ui/textarea'
 import { Button } from '../../ui/button'
+import TodoSaveToaster from '../(toasters)/todo-save-toaster'
 
 const formSchema = z.object({
   title: z.string().min(4, {
@@ -60,9 +60,7 @@ export default function TodoEditForm({ SubmitForm, title }: TodoFormProps) {
               </FormControl>
               <DialogFooter className='flex items-center gap-4'>
                 <FormMessage />
-                <DialogClose asChild>
-                  <Button type='submit'>Salvar</Button>
-                </DialogClose>
+                <TodoSaveToaster />
               </DialogFooter>
             </FormItem>
           )}

@@ -53,9 +53,7 @@ export default function TodoAddForm({ SubmitForm }: TodoFormProps) {
               </FormControl>
               <DialogFooter className='flex items-center gap-4'>
                 <FormMessage />
-                <DialogClose asChild>
-                  <Button type='submit'>Salvar</Button>
-                </DialogClose>
+                <Button type='submit'>Salvar</Button>
               </DialogFooter>
             </FormItem>
           )}
