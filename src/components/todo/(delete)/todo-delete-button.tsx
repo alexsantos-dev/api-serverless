@@ -28,7 +28,7 @@ export default function TodoDeleteButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='destructive' className='w-[20px] h-[24px]'>
+        <Button variant='destructive' className='w-[32px] h-[32px]'>
           🗑️
         </Button>
       </AlertDialogTrigger>

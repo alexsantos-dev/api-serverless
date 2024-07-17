@@ -9,7 +9,7 @@ export default function TodoListItem({
   onAction,
 }: TodoButtonActionProps) {
   return (
-    <div className='flex-col  w-[360px] h-[56px] pt-1 pb-1 pl-0 pr-0'>
+    <div className='flex-col  w-[360px] h-[56px] pt-1 pb-1 pl-0 pr-0 '>
       <div className='w-full flex rounded-md '>
         <div className='w-[270px] flex items-center p-1'>
           <p className='overflow-hidden text-ellipsis text-nowrap '>{title}</p>

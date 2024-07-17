@@ -30,7 +30,7 @@ export default function TodoEditButton({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={'outline'} className='w-[20px] h-[24px]'>
+        <Button variant={'outline'} className='w-[32px] h-[32px]'>
           ✏️
         </Button>
       </DialogTrigger>

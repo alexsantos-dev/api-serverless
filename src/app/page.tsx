@@ -6,7 +6,7 @@
   updatedAt: Date
 } */
 
-import Container from '@/components/todo/todo-container'
+import Container from '@/components/todo/(container)/todo-container'
 
 export default function Home() {
   return (
