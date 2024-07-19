@@ -55,9 +55,17 @@ export default function TodoEditButton({
     }
     return toast
       .promise(
-        axios.patch(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos/${id}`, {
-          title: data.title,
-        }),
+        axios.patch(
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/todos/${id}`,
+          {
+            title: data.title,
+          },
+          {
+            headers: {
+              'X-Custom-Header': 'self-request',
+            },
+          }
+        ),
         {
           loading: 'Updating...',
           success: 'Todo updated successfully!',

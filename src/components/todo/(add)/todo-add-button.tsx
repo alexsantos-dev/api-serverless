@@ -22,7 +22,11 @@ export default function TodoAddButton({
     if (!data.title.trim()) {
       return
     }
-    await axios.post(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos`, data)
+    await axios.post(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos`, data, {
+      headers: {
+        'X-Custom-Header': 'self-request',
+      },
+    })
     onAction()
   }
 

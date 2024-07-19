@@ -20,7 +20,11 @@ export default function TodoDeleteButton({
   onAction,
 }: TodoDeleteButtonProps) {
   const deleteTodoEntity = async () => {
-    await axios.delete(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos/${id}`)
+    await axios.delete(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos/${id}`, {
+      headers: {
+        'X-Custom-Header': 'self-request',
+      },
+    })
     onAction()
   }
 

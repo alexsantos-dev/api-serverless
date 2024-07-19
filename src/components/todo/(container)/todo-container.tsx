@@ -12,7 +12,12 @@ export default function Container() {
 
   const todosCallback = useCallback(async () => {
     const todosData = await axios.get(
-      `${process.env.NEXT_PUBLIC_DEV_URL}/api/todos`
+      `${process.env.NEXT_PUBLIC_DEV_URL}/api/todos`,
+      {
+        headers: {
+          'X-Custom-Header': 'self-request',
+        },
+      }
     )
     setTodos(todosData.data)
   }, [])
