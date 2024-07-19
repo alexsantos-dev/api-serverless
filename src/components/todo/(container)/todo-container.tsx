@@ -4,15 +4,17 @@ import TodoAddButton from '../(add)/todo-add-button'
 import TodoListScroll from '../(list)/todo-list-scroll'
 import { useState, useEffect, useCallback } from 'react'
 import { TodoEntity } from '@/utils/interfaces/TodoEntity.interface'
-import { getAllTodos } from '@/lib/api'
+import axios from 'axios'
 import TodoListScrollLoading from '../(list)/todo-list-scroll-loading'
 
 export default function Container() {
   const [todos, setTodos] = useState<TodoEntity[]>([])
 
   const todosCallback = useCallback(async () => {
-    const todosData = await getAllTodos()
-    setTodos(todosData)
+    const todosData = await axios.get(
+      `${process.env.NEXT_PUBLIC_DEV_URL}/api/todos`
+    )
+    setTodos(todosData.data)
   }, [])
 
   useEffect(() => {
