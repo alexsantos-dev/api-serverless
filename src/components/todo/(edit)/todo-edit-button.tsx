@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,40 +7,132 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
+  DialogClose,
 } from '@/components/ui/dialog'
-import TodoEditForm from './todo-edit-form'
 import axios from 'axios'
-import { localUrl } from '@/utils/consts'
 import { TodoButtonActionProps } from '@/utils/interfaces/TodoList.interface'
-import { toast } from 'sonner'
+import { useEffect, useState } from 'react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
+
+import { Textarea } from '../../ui/textarea'
+import { Button, buttonVariants } from '@/components/ui/button'
+
+import { Toaster, toast } from 'react-hot-toast'
+
+const formSchema = z.object({
+  title: z
+    .string()
+    .min(4, {
+      message: 'the title must be at least 4 characters',
+    })
+    .max(200, {
+      message: 'maximun title length excited',
+    }),
+})
+
+type FormSchemaType = z.infer<typeof formSchema>
 
 export default function TodoEditButton({
   id,
   title,
   onAction,
 }: TodoButtonActionProps) {
-  const editTodoEntity = async (data: { title: string }) => {
+  const [open, setOpen] = useState(false)
+
+  const editTodoEntity: SubmitHandler<FormSchemaType> = async (data) => {
     if (!data.title.trim()) {
       return
     }
-    await axios.patch(`${localUrl}/api/todos/${id}`, data)
-    onAction()
+    return toast
+      .promise(
+        axios.patch(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos/${id}`, {
+          title: data.title,
+        }),
+        {
+          loading: 'Updating...',
+          success: 'Todo updated successfully!',
+          error: 'Failed to update todo',
+        }
+      )
+      .finally(() => {
+        onAction()
+        setOpen(false)
+      })
   }
 
+  const form = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: title,
+    },
+  })
+
+  useEffect(() => {
+    if (open) {
+      form.reset({ title })
+      form.getValues('title')
+    }
+  }, [open, title, form])
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant={'outline'} className='w-[32px] h-[32px]'>
-          ✏️
-        </Button>
-      </DialogTrigger>
-      <DialogContent className='w-[400px] h-[260px]'>
-        <DialogHeader>
-          <DialogTitle>Editar</DialogTitle>
-          <DialogDescription>Edite seu todo no campo abaixo</DialogDescription>
-        </DialogHeader>
-        <TodoEditForm SubmitForm={editTodoEntity} title={title} />
-      </DialogContent>
-    </Dialog>
+    <>
+      <Toaster position='bottom-right' />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant={'outline'} className='w-[32px] h-[32px]'>
+            ✏️
+          </Button>
+        </DialogTrigger>
+        <DialogContent className='w-[400px] h-[260px]'>
+          <DialogHeader>
+            <DialogTitle>Editar</DialogTitle>
+            <DialogDescription>
+              Edite seu todo no campo abaixo
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(editTodoEntity)}>
+              <FormField
+                control={form.control}
+                name='title'
+                render={({ field }) => (
+                  <FormItem className='flex flex-col gap-6'>
+                    <FormControl>
+                      <Textarea
+                        maxLength={200}
+                        placeholder='Como dizia o filósofo...'
+                        {...field}
+                      />
+                    </FormControl>
+                    <DialogFooter className='flex items-center gap-4'>
+                      <FormMessage />
+                      <DialogClose
+                        className={buttonVariants({ variant: 'default' })}
+                        disabled={
+                          Object.keys(form.formState.errors).length > 0 ||
+                          !form.getValues('title').trim()
+                        }
+                        type='submit'>
+                        Salvar
+                      </DialogClose>
+                    </DialogFooter>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }

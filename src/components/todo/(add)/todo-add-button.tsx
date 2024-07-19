@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import axios from 'axios'
-import { localUrl } from '@/utils/consts'
 import TodoAddForm from './todo-add-form'
 
 export default function TodoAddButton({
@@ -23,7 +22,7 @@ export default function TodoAddButton({
     if (!data.title.trim()) {
       return
     }
-    await axios.post(`${localUrl}/api/todos`, data)
+    await axios.post(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos`, data)
     onAction()
   }
 

@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button, buttonVariants } from '@/components/ui/button'
 import axios from 'axios'
-import { localUrl } from '@/utils/consts'
 import { TodoDeleteButtonProps } from '@/utils/interfaces/TodoList.interface'
 
 export default function TodoDeleteButton({
@@ -21,7 +20,7 @@ export default function TodoDeleteButton({
   onAction,
 }: TodoDeleteButtonProps) {
   const deleteTodoEntity = async () => {
-    await axios.delete(`${localUrl}/api/todos/${id}`)
+    await axios.delete(`${process.env.NEXT_PUBLIC_DEV_URL}/api/todos/${id}`)
     onAction()
   }
 

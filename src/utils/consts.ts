@@ -1,1 +1,0 @@
-export const localUrl: string = 'http://localhost:3000'
