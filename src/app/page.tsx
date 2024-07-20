@@ -2,7 +2,7 @@ import Container from '@/components/todo/(container)/todo-container'
 
 export default function Home() {
   return (
-    <main className='w-full h-screen bg-slate-300 flex justify-center items-center relative'>
+    <main className='w-screen h-screen flex justify-center items-center'>
       <Container />
     </main>
   )

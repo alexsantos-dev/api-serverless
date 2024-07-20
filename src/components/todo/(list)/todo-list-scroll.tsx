@@ -12,7 +12,7 @@ export default function TodoListScroll({
   onAction,
 }: TodoListScrollProps) {
   return (
-    <ScrollArea className='w-[400px] h-[400px] flex justify-center items-center'>
+    <ScrollArea className='w-[320px] md:w-[380px] h-[400px] flex justify-center items-center rounded-lg p-2'>
       <div className='w-full h-full flex flex-col justify-center items-center'>
         {todos.length > 0 &&
           todos.map((todoEntity: TodoEntity) => (

@@ -27,7 +27,7 @@ export default function Container() {
   }, [todosCallback])
 
   return (
-    <div className='w-[400px] h-[500px] bg-background shadow-xl rounded-xl flex flex-col justify-center items-center'>
+    <div className='w-[340px] md:w-[400px] h-[500px] bg-background shadow-xl rounded-xl flex flex-col justify-center items-center'>
       {!todos || todos.length === 0 ? (
         <TodoListScrollLoading />
       ) : (

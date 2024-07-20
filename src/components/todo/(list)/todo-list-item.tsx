@@ -9,13 +9,13 @@ export default function TodoListItem({
   onAction,
 }: TodoButtonActionProps) {
   return (
-    <div className='flex-col  w-[360px] h-[56px] pt-1 pb-1 pl-0 pr-0 '>
-      <div className='w-full flex rounded-md '>
-        <div className='w-[270px] flex items-center p-1'>
+    <div className='flex flex-col w-[300px] md:w-[360px] h-[56px]'>
+      <div className='w-full flex rounded-md justify-between gap-4'>
+        <div className='w-[200px] md:w-[260px] flex items-center'>
           <p className='overflow-hidden text-ellipsis text-nowrap '>{title}</p>
         </div>
-        <div className='w-[90px] flex items-center justify-center '>
-          <div className='flex gap-4 '>
+        <div className='w-[80px] flex items-center justify-center'>
+          <div className='w-full flex justify-between'>
             <TodoEditButton id={id} title={title} onAction={onAction} />
             <TodoDeleteButton id={id} onAction={onAction} />
           </div>

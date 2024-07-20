@@ -94,14 +94,14 @@ export default function TodoEditButton({
 
   return (
     <>
-      <Toaster position='bottom-right' />
+      <Toaster position='top-right' />
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant={'outline'} className='w-[32px] h-[32px]'>
             ✏️
           </Button>
         </DialogTrigger>
-        <DialogContent className='w-[400px] h-[260px]'>
+        <DialogContent className='w-[340px] md:w-[400px] h-[260px] absolute'>
           <DialogHeader>
             <DialogTitle>Editar</DialogTitle>
             <DialogDescription>
@@ -114,7 +114,7 @@ export default function TodoEditButton({
                 control={form.control}
                 name='title'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col gap-6'>
+                  <FormItem className='flex flex-col items-end gap-6'>
                     <FormControl>
                       <Textarea
                         maxLength={200}
@@ -128,7 +128,7 @@ export default function TodoEditButton({
                         className={buttonVariants({ variant: 'default' })}
                         disabled={
                           Object.keys(form.formState.errors).length > 0 ||
-                          !form.getValues('title').trim()
+                          form.getValues('title').trim().length < 4
                         }
                         type='submit'>
                         Salvar
