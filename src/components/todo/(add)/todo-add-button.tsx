@@ -87,9 +87,11 @@ export default function TodoAddButton({
       <Toaster position='top-right' />
       <Dialog>
         <DialogTrigger asChild>
-          <Button className='w-[310px] md:w-[370px] h-[48px]'>Adicionar</Button>
+          <Button className='rounded-lg w-[310px] md:w-[370px] h-[48px]'>
+            Adicionar
+          </Button>
         </DialogTrigger>
-        <DialogContent className='w-[340px] md:w-[400px] h-[260px] absolute'>
+        <DialogContent className='rounded-xl w-[320px] md:w-[380px] h-[260px] absolute'>
           <DialogHeader>
             <DialogTitle>Adicionar</DialogTitle>
             <DialogDescription>
@@ -105,6 +107,7 @@ export default function TodoAddButton({
                   <FormItem className='flex flex-col gap-6 items-end'>
                     <FormControl>
                       <Textarea
+                        className='rounded-lg'
                         maxLength={200}
                         placeholder='Como dizia o filósofo...'
                         {...field}
@@ -113,7 +116,9 @@ export default function TodoAddButton({
                     <DialogFooter className='flex items-center gap-4'>
                       <FormMessage />
                       <DialogClose
-                        className={buttonVariants({ variant: 'default' })}
+                        className={`${buttonVariants({
+                          variant: 'default',
+                        })} rounded-lg`}
                         disabled={
                           Object.keys(form.formState.errors).length > 0 ||
                           form.getValues('title').trim().length < 4

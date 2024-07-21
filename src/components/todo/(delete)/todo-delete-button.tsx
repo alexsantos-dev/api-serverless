@@ -44,20 +44,24 @@ export default function TodoDeleteButton({
       <Toaster position='top-right' />
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant='destructive' className='w-[32px] h-[32px]'>
+          <Button
+            variant='destructive'
+            className='rounded-lg w-[32px] h-[32px]'>
             🗑️
           </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className='flex flex-col justify-center items-center w-[400px] h-[140px]'>
+        <AlertDialogContent className='rounded-xl flex flex-col justify-center items-center w-[320px] md:w-[380px] h-[140px]'>
           <AlertDialogHeader>
             <AlertDialogTitle>Deseja apagar esse item?</AlertDialogTitle>
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className='flex gap-3'>
+          <AlertDialogFooter className='flex flex-row gap-3 justify-between'>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction
               onClick={deleteTodoEntity}
-              className={buttonVariants({ variant: 'destructive' })}>
+              className={buttonVariants({
+                variant: 'destructive',
+              })}>
               Confirmar
             </AlertDialogAction>
           </AlertDialogFooter>
