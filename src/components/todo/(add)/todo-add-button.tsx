@@ -72,6 +72,7 @@ export default function TodoAddButton({
       )
       .finally(() => {
         onAction()
+        form.reset()
       })
   }
 

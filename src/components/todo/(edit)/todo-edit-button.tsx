@@ -117,10 +117,11 @@ export default function TodoEditButton({
                   <FormItem className='flex flex-col items-end gap-6'>
                     <FormControl>
                       <Textarea
-                      className='rounded-lg'
+                        className='rounded-lg'
                         maxLength={200}
                         placeholder='Como dizia o filósofo...'
                         {...field}
+                        value={field.value}
                       />
                     </FormControl>
                     <DialogFooter className='flex items-center gap-4'>

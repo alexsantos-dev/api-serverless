@@ -56,12 +56,14 @@ export default function TodoDeleteButton({
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className='flex flex-row gap-3 justify-between'>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel className='rounded-lg'>
+              Cancelar
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={deleteTodoEntity}
-              className={buttonVariants({
+              className={`${buttonVariants({
                 variant: 'destructive',
-              })}>
+              })} rounded-lg`}>
               Confirmar
             </AlertDialogAction>
           </AlertDialogFooter>
